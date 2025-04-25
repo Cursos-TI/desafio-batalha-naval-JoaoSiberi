@@ -29,6 +29,10 @@ int main() {
     int coluna1 = 4;
     int linha2 = 5;
     int coluna2 = 7;
+    int linha3 = 3;
+    int coluna3 = 1;
+    int linha4 = 0;
+    int coluna4 = 7;
 
     for (int b1 = 0; b1 < 3; b1++) {
         tabuleiro[linha1][coluna1 + b1] = 3;
@@ -37,6 +41,17 @@ int main() {
     for (int b2 = 0; b2 < 3; b2++) {
         tabuleiro[linha2 + b2][coluna2] = 3;
     }
+
+    for (int i = 0; i < 3; i++)
+    {
+        tabuleiro[linha3 - i] [coluna3 + i] = 3;
+    }
+    
+    for (int i = 0; i < 3; i++)
+    {
+        tabuleiro [linha4 +i] [coluna4 + i] = 3;
+        }
+    
 
     for (i = 0; i < 10; i++) {          
         for (j = 0; j < 11; j++) { 
