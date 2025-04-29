@@ -1,66 +1,87 @@
 #include <stdio.h>
 
+#define LINHAS 10
+#define COLUNAS 11
 
 int main() {
 
-    int tabuleiro [10][11] = {
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-    };
+    // Criação do Tabuleiro
+    int tabuleiro [LINHAS][COLUNAS];
+    int soma = 1;
 
-    int i;
-    int j;
-
-    int barco1 [3] = {3, 3, 3};
-    int barco2 [3] = {3, 3, 3};
-
-    printf("**  Tabuleiro  **\n\n");
-    printf("      A   B   C   D   E   F   G   H   I   J\n");
-
-    int linha1 = 3;
-    int coluna1 = 4;
-    int linha2 = 5;
-    int coluna2 = 7;
-    int linha3 = 3;
-    int coluna3 = 1;
-    int linha4 = 0;
-    int coluna4 = 7;
-
-    for (int b1 = 0; b1 < 3; b1++) {
-        tabuleiro[linha1][coluna1 + b1] = 3;
-    }
-
-    for (int b2 = 0; b2 < 3; b2++) {
-        tabuleiro[linha2 + b2][coluna2] = 3;
-    }
-
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < LINHAS; i++)
     {
-        tabuleiro[linha3 - i] [coluna3 + i] = 3;
-    }
-    
-    for (int i = 0; i < 3; i++)
-    {
-        tabuleiro [linha4 +i] [coluna4 + i] = 3;
+        for (int j = 0; j < COLUNAS; j++)
+        {
+            if (j == 0)
+            {
+               tabuleiro[i][j] = soma;
+               soma++;
+            }
+            else{
+                tabuleiro [i][j] = 0;
+            }
         }
     
+    }
+    // Variáveis Cone
+    int coluna_origem_cone = 7;
+    int linha_origem_cone = 3;
+    int alcance_cone = 0;
 
-    for (i = 0; i < 10; i++) {          
-        for (j = 0; j < 11; j++) { 
+    //Comando para o cone
+    for (int i = 0; i < 3; i++) {
+        int linha_atual = linha_origem_cone + i;
+
+        for (int j = coluna_origem_cone - alcance_cone; j <= coluna_origem_cone + alcance_cone; j++)
+        {
+                tabuleiro[linha_atual][j] = 1;
+        }
+        alcance_cone ++;
+    }
+    // Variáveis Cruz
+    int coluna_cruz = 4;
+    int linha_cruz = 5;
+    int alcance_cruz = 0;
+
+    //Comando para a cruz
+    for (int i = 0; i < linha_cruz; i++) {
+        tabuleiro[i][coluna_cruz] = 2;
+    }
+    for (int j = 0; j < 5; j++) {
+        tabuleiro[2][2 + alcance_cruz] = 2;
+        alcance_cruz ++;
+    }
+
+    // Variáveis Octaedro
+
+    int coluna_octaedro = 1;
+    int linha_octaedro = 6;
+    int alcance_octaedro = 0;
+
+    //Comando para o octaedro
+        for (int i = 0; i < 3; i++)
+        {
+            tabuleiro [linha_octaedro + i][2] = 3;
+        }
         
-                printf("  %d ", tabuleiro[i][j]);
+        for (int j = 0; j < 3   ; j++)
+        {
+            int linha_central = 7;
+            tabuleiro [linha_central] [coluna_octaedro + j] = 3;
         }
-            printf("\n");                   
-    }
-    
+        
+
+// Impressão do tabuleiro
+        for (int i = 0; i < LINHAS; i++)
+        {
+           for (int j = 0; j < COLUNAS; j++)
+           {
+             printf("%d ", tabuleiro[i][j]);
+           }
+           printf("\n");
+        }
+        
     
 
     return 0;
